@@ -110,6 +110,26 @@ ul.rules{padding-left:20px;margin:6px 0 16px}ul.rules li{margin:5px 0}
 .chk input{width:22px;height:22px;min-height:0}
 .status{font-size:13px;color:var(--mute);margin-top:20px}
 h2.sec{font-size:26px;margin:18px 0 8px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.who{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;max-width:45%;padding:0 12px;border-radius:999px;border:2px solid rgba(255,255,255,.55);background:rgba(0,0,0,.12);color:#fff;font:600 15px Barlow,sans-serif;cursor:pointer}
+.who span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.who svg{flex:none;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+dialog{border:0;border-radius:18px;padding:0;width:min(480px,calc(100vw - 32px));max-height:calc(100dvh - 48px);background:var(--card);color:var(--ink);box-shadow:0 20px 60px rgb(0 0 0/.35)}
+dialog::backdrop{background:rgb(0 0 0/.55)}
+.dlg{padding:20px;overflow-y:auto;overscroll-behavior:contain}
+.dlg h2{font-size:28px;margin:0 0 4px}
+.dlg h3{font-size:20px;margin:20px 0 8px}
+.plist{display:grid;gap:8px;margin:12px 0 0}
+.plist button{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:52px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 17px Barlow,sans-serif;text-align:start;cursor:pointer}
+.plist button[aria-pressed=true]{border:2px solid var(--ink)}
+.plist small{font-weight:400;color:var(--mute);font-size:14px;white-space:nowrap}
+.field{display:grid;gap:4px;margin:0 0 10px}
+.field label{font-size:14px;color:var(--mute)}
+.field input{width:100%}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.danger{color:var(--bad);border-color:var(--bad)}
+.btn.danger{background:var(--bad);color:#fff}
+.confirm{background:var(--bg);border-radius:12px;padding:12px;margin-top:8px}
 .nav{position:fixed;inset-inline:0;bottom:0;z-index:10;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;background:color-mix(in srgb,var(--card) 90%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 .nav button{min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:0;border-radius:12px;color:var(--mute);font:600 13px/1.2 Barlow,sans-serif;cursor:pointer}
 .ni{display:grid;place-items:center;width:56px;height:30px;border-radius:999px}
@@ -175,7 +195,7 @@ h2.sec{font-size:26px;margin:18px 0 8px}
 <body>
 <header class="band">
   <div class="wrap">
-    <h1>Plan hybride · Mois 1</h1>
+    <div class="top"><h1>Plan hybride · Mois 1</h1><button class="who" id="whoBtn" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span id="whoName">Moi</span></button></div>
     <div class="sub"><span id="wkLabel">Semaine 1</span><span id="wkKm">~25 km de course</span></div>
     <div class="weeks" id="weeks"></div>
   </div>
@@ -296,6 +316,29 @@ h2.sec{font-size:26px;margin:18px 0 8px}
   </section>
   <p class="status" id="status" role="status" aria-live="polite">Enregistré sur ce téléphone.</p>
 </main>
+<dialog id="profDlg" aria-labelledby="profTitle">
+  <div class="dlg">
+    <h2 id="profTitle">Profils</h2>
+    <p class="meta">Chaque profil a sa VMA, sa FC max, sa date de début, ses séances cochées, ses charges et ses données Santé.</p>
+    <div class="plist" id="plist"></div>
+    <h3>Profil actif</h3>
+    <div class="field"><label for="profName">Prénom</label><input id="profName" type="text" autocomplete="given-name" maxlength="24"></div>
+    <div id="delZone"></div>
+    <h3>Ajouter un profil</h3>
+    <form id="addForm" novalidate>
+      <div class="field"><label for="newName">Prénom</label><input id="newName" name="newName" type="text" autocomplete="off" maxlength="24" placeholder="Camille" aria-describedby="newErr"></div>
+      <div class="grid2">
+        <div class="field"><label for="newVma">VMA (km/h)</label><input id="newVma" name="newVma" type="number" inputmode="decimal" step="0.1" min="8" max="25" value="12"></div>
+        <div class="field"><label for="newStart">Lundi de la semaine 1</label><input id="newStart" name="newStart" type="date"></div>
+      </div>
+      <p class="meta" id="newErr" role="status"></p>
+      <p class="meta">VMA inconnue ? Laisse 12 et fais le test demi-Cooper de la semaine 1 : l'app la met à jour.</p>
+      <div class="row"><button class="btn" type="submit">Créer et ouvrir ce profil</button></div>
+    </form>
+    <p class="meta">Sur un iPhone partagé, le Raccourci Santé lit la Santé du propriétaire de l'iPhone : importe seulement dans ton propre profil.</p>
+    <div class="row"><button class="btn alt" id="closeDlg" type="button">Fermer</button></div>
+  </div>
+</dialog>
 <nav class="nav" aria-label="Sections">
   <button id="t-seances" data-tab="seances" aria-current="page"><span class="ni"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>Séances</button>
   <button id="t-sante" data-tab="sante"><span class="ni"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12.5h4l2.5-5 4.5 9 2.5-4.5h5.5"/></svg></span>Santé</button>
@@ -351,13 +394,21 @@ const LS="plan-hybride-m1";
 const DEF=()=>({start:"2026-11-23",vma:15,done:{},log:{},bilan:{},test:"",fcmax:"",health:{rhr:{},hrv:{},slp:{},runs:{},at:""}});
 function norm(s){const d=DEF();const o=Object.assign(d,s||{});o.health=Object.assign(DEF().health,o.health||{});["rhr","hrv","slp","runs"].forEach(k=>{if(!o.health[k]||typeof o.health[k]!=="object")o.health[k]={}});return o}
 let st=DEF();
-try{const s=JSON.parse(localStorage.getItem(LS)||"null");if(s)st=norm(s)}catch(e){}
+const PK="plan-hybride-profiles";let PROF={active:"p1",list:[{id:"p1",name:"Moi"}]};
+const pkey=id=>"plan-hybride-p-"+(id||PROF.active);
+function saveProfiles(){try{localStorage.setItem(PK,JSON.stringify(PROF))}catch(e){}}
+function loadProfiles(){let P=null;try{P=JSON.parse(localStorage.getItem(PK)||"null")}catch(e){}
+ if(P&&Array.isArray(P.list)&&P.list.length){PROF=P;if(!P.list.some(x=>x.id===P.active))PROF.active=P.list[0].id;return}
+ try{const old=localStorage.getItem(LS);if(old&&!localStorage.getItem(pkey("p1")))localStorage.setItem(pkey("p1"),old)}catch(e){}
+ saveProfiles()}
+function loadState(){let s=null;try{s=JSON.parse(localStorage.getItem(pkey())||"null")}catch(e){}st=norm(s)}
+const profName=()=>(PROF.list.find(x=>x.id===PROF.active)||{name:"Moi"}).name;
+loadProfiles();loadState();
 let tab="seances";
-const t0=new Date(st.start+"T00:00:00");
 const now=new Date();now.setHours(0,0,0,0);
-const diff=Math.floor((now-new Date(st.start+"T00:00:00"))/864e5);
-let wk=Math.min(4,Math.max(1,Math.floor(diff/7)+1));
-let sel=diff>=0&&diff<28?diff%7:0;
+let wk=1,sel=0;
+function resetView(){const diff=Math.floor((now-new Date(st.start+"T00:00:00"))/864e5);wk=Math.min(4,Math.max(1,Math.floor(diff/7)+1));sel=diff>=0&&diff<28?diff%7:0}
+resetView();
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const mmss=s=>{s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
@@ -513,8 +564,19 @@ function doImport(t){const res=$("impRes");
  $("impRes").textContent="Importé : "+parts.join(", ")+"."+(c.auto?" "+c.auto+" séance"+(c.auto>1?"s cochées":" cochée")+" automatiquement.":"")+(c.bad?" "+c.bad+" ligne"+(c.bad>1?"s":"")+" non reconnue"+(c.bad>1?"s":"")+" : si ça persiste, envoie le texte à Claude.":"");
  setStatus("Données Santé importées.")}
 function importClip(){if(navigator.clipboard&&navigator.clipboard.readText){navigator.clipboard.readText().then(doImport,()=>{$("impManual").open=true;tab="sante";render();setStatus("Colle le texte du Raccourci dans la zone prévue.")})}else{$("impManual").open=true;tab="sante";render()}}
+const mondayOf=d=>{const x=new Date(d);x.setDate(x.getDate()-((x.getDay()+6)%7));return dk(x)};
+let DEL=false;
+function renderProfiles(){
+ $("plist").innerHTML=PROF.list.map(x=>{let s=null;try{s=JSON.parse(localStorage.getItem(pkey(x.id))||"null")}catch(e){}const n=s&&s.done?Object.keys(s.done).length:0;
+  return'<button type="button" id="prof-'+x.id+'" data-prof="'+x.id+'" aria-pressed="'+(x.id===PROF.active)+'"><span>'+esc(x.name)+'</span><small>'+(x.id===PROF.active?"actif · ":"")+n+" séance"+(n>1?"s":"")+" faite"+(n>1?"s":"")+"</small></button>"}).join("");
+ $("profName").value=profName();
+ $("delZone").innerHTML=PROF.list.length<2?"":DEL?'<div class="confirm" role="group" aria-labelledby="delQ"><p id="delQ" class="fa">Supprimer le profil « '+esc(profName())+' » ?</p><p class="meta">Ses séances, charges, bilans et données Santé seront effacés de ce téléphone. Fais « Copier mon bilan » avant si tu veux les garder.</p><div class="row"><button type="button" class="btn danger" id="delYes">Supprimer « '+esc(profName())+' »</button><button type="button" class="btn alt" id="delNo">Annuler</button></div></div>':'<button type="button" class="lnk danger" id="delAsk">Supprimer ce profil…</button>';
+ if(!$("newStart").value)$("newStart").value=mondayOf(now);
+}
+function switchProfile(id){PROF.active=id;saveProfiles();loadState();resetView();OPEN.clear();UNDO=null;DEL=false;tab="seances";render();window.scrollTo(0,0)}
 function render(){
  const fid=document.activeElement&&document.activeElement.id;
+ $("whoName").textContent=profName();$("whoBtn").setAttribute("aria-label","Profil : "+profName()+". Changer ou ajouter un profil");
  $("weeks").innerHTML=[1,2,3,4].map(i=>'<button id="wk-'+i+'" aria-pressed="'+(i===wk)+'" data-w="'+i+'" aria-label="S'+i+', semaine '+i+(i===4?' allégée':'')+'">S'+i+"</button>").join("");
  $("wkLabel").textContent="Semaine "+wk+(wk===4?" allégée":"")+" · du "+fdate(dateOf(wk,0))+" au "+fdate(dateOf(wk,6));
  const kd=kmBetween(dk(dateOf(wk,0)),dk(dateOf(wk,6)));$("wkKm").textContent="~"+KM[wk-1]+" km prévus"+(kd>0?" · "+f1(kd)+" km faits":"");
@@ -545,9 +607,9 @@ function render(){
 }
 let UNDO=null;
 function setStatus(t,undo){const s=$("status");s.textContent=t;if(undo){const u=document.createElement("button");u.className="lnk";u.id="undoBtn";u.textContent="Annuler la restauration";s.append(" ",u)}}
-function save(){try{localStorage.setItem(LS,JSON.stringify(st));setStatus("Enregistré sur ce téléphone.")}catch(e){setStatus("Impossible d'enregistrer sur ce téléphone (navigation privée ?).")}}
+function save(){try{localStorage.setItem(pkey(),JSON.stringify(st));setStatus("Enregistré sur ce téléphone.")}catch(e){setStatus("Impossible d'enregistrer sur ce téléphone (navigation privée ?).")}}
 function bilanText(){
- const L=["Bilan Plan hybride, mois 1","VMA : "+v().toFixed(1)+" km/h"+(st.test?" (test : "+st.test+" m en 6 min)":"")];
+ const L=["Bilan Plan hybride, mois 1 · "+profName(),"VMA : "+v().toFixed(1)+" km/h"+(st.test?" (test : "+st.test+" m en 6 min)":"")];
  for(let w=1;w<=4;w++){
   const all=[];PLAN.forEach((cs,d)=>cs.forEach(c=>all.push([d,c])));
   const ok=all.filter(([d,c])=>st.done[w+"-"+d+"-"+c]);
@@ -578,6 +640,12 @@ document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)r
  else if(b.id==="importBtn"){const raw=$("importIn").value;const i=raw.indexOf("{",raw.indexOf("DONNÉES")>=0?raw.indexOf("DONNÉES"):0);
   try{const d=JSON.parse(raw.slice(i));if(!d||typeof d!=="object"||!("done" in d))throw 0;UNDO=JSON.stringify(st);st=norm(d);save();$("importIn").value="";render();setStatus("Sauvegarde restaurée.",true);$("status").scrollIntoView({block:"nearest"})}
   catch(err){setStatus("Sauvegarde illisible : colle le bilan complet, ligne DONNÉES comprise.")}}
+ else if(b.id==="whoBtn"){DEL=false;renderProfiles();$("profDlg").showModal()}
+ else if(b.id==="closeDlg"){$("profDlg").close()}
+ else if(b.dataset.prof){if(b.dataset.prof!==PROF.active){switchProfile(b.dataset.prof);$("profDlg").close();setStatus("Profil ouvert : "+profName()+".")}}
+ else if(b.id==="delAsk"){DEL=true;renderProfiles();$("delYes").focus()}
+ else if(b.id==="delNo"){DEL=false;renderProfiles();$("delAsk").focus()}
+ else if(b.id==="delYes"){const gone=PROF.active,name=profName();try{localStorage.removeItem(pkey(gone))}catch(err){}PROF.list=PROF.list.filter(x=>x.id!==gone);switchProfile(PROF.list[0].id);$("profDlg").close();setStatus("Profil « "+name+" » supprimé. Profil ouvert : "+profName()+".")}
  else if(b.id==="undoBtn"&&UNDO){st=norm(JSON.parse(UNDO));UNDO=null;save();render();setStatus("Restauration annulée : tes données précédentes sont revenues.")}
  else if(b.id==="useVma"){const d=Number(st.test);if(d>1000){st.vma=Math.round(d/10)/10;save();render();setStatus("VMA mise à jour : "+st.vma+" km/h. Toutes les allures sont recalculées.")}}
 });
@@ -588,7 +656,15 @@ document.addEventListener("input",e=>{const t=e.target;
  else if(t.id==="startIn"&&t.value){st.start=t.value;save()}
  else if(t.id==="fcIn"){const n=Number(t.value);if(!t.value||(n>=150&&n<=230)){st.fcmax=t.value;save()}}
 });
+document.addEventListener("submit",e=>{if(e.target.id!=="addForm")return;e.preventDefault();
+ const nm=$("newName").value.trim(),vm=Number($("newVma").value),sd=$("newStart").value;const err=$("newErr");
+ if(!nm){err.textContent="Indique un prénom pour créer le profil.";$("newName").setAttribute("aria-invalid","true");$("newName").focus();return}
+ $("newName").removeAttribute("aria-invalid");err.textContent="";
+ const id="p"+Date.now().toString(36);const s=DEF();if(vm>=8&&vm<=25)s.vma=vm;if(sd)s.start=sd;
+ try{localStorage.setItem(pkey(id),JSON.stringify(s))}catch(x){err.textContent="Impossible d'enregistrer sur ce téléphone.";return}
+ PROF.list.push({id,name:nm});$("newName").value="";switchProfile(id);$("profDlg").close();setStatus("Profil « "+nm+" » créé. Il démarre le "+new Date(s.start+"T00:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"long"})+".")});
 document.addEventListener("change",e=>{const t=e.target;
+ if(t.id==="profName"){const nm=t.value.trim();if(nm){const x=PROF.list.find(y=>y.id===PROF.active);x.name=nm;saveProfiles();renderProfiles();render()}else t.value=profName();return}
  if(t.dataset.b!==undefined){if(t.checked)st.bilan[t.dataset.b]=true;else delete st.bilan[t.dataset.b];save()}
  if(t.id==="vmaIn"||t.id==="startIn"||t.id==="fcIn")render()});
 render();
