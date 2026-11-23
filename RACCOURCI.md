@@ -14,6 +14,8 @@ HRV;2026-11-23T03:10:00;48
 SLP;2026-11-22T23:50:00;2026-11-23T01:50:00;Endormi (essentiel)
 WK;2026-11-22T10:05:00;2026-11-22T11:07:00;10,4 km;Course à pied extérieure
 HR;2026-11-22T10:05:05;121
+WT;2026-11-23T08:00:00;90,8 kg
+WST;2026-11-23T08:00:00;94 cm
 ```
 
 Les unités (`BPM`, `ms`, `km`) et la virgule décimale sont acceptées.
@@ -54,7 +56,12 @@ Refais le bloc 2 avec le type **Variabilité de la fréquence cardiaque** (21 jo
 3. **Afficher une notification** : `Données copiées : ouvre Plan hybride et touche Importer`.
 4. Lance-le une fois et accepte les autorisations Santé. Ouvre l'app, onglet Santé, **Importer depuis Santé**.
 
-## 7. Automatiser
+## 7. Poids et tour de taille (facultatif)
+
+1. Même principe que le bloc FC de repos, avec le type **Poids** (60 jours) et un texte qui commence par `WT;`.
+2. Si tu mesures ton tour de taille dans Santé : type **Tour de taille**, texte `WST;`. Sinon, saisis-le dans l'onglet Progrès de l'app.
+
+## 8. Automatiser
 
 1. Raccourcis › **Automatisation** › **+** › **Réveil** › « Quand le réveil est arrêté » (ou **Heure de la journée**, 7:30) › **Exécuter immédiatement** › raccourci `Plan Santé`.
 2. Si ton iOS le propose : une 2e automatisation **Entraînement Apple Watch** › « Se termine » › même raccourci.
