@@ -24,6 +24,7 @@
 :root{color-scheme:light dark;--bg:light-dark(#f6f5f2,#121212);--card:light-dark(#ffffff,#1c1c1c);--ink:light-dark(#161616,#f1efea);--mute:light-dark(#5d5a55,#a9a59d);--line:light-dark(#e2dfd8,#2e2e2e);--run:light-dark(#d2401e,#ec5a35);--lift:light-dark(#2f5d8a,#6d9ccc);--rest:light-dark(#8c8780,#77736c);--soft:light-dark(#fbeee9,#2a1c17);--band:light-dark(#d2401e,#b8361a);--ok:light-dark(#23784a,#5cc28a);--warn:light-dark(#a35f00,#e9a83a);--bad:light-dark(#b3261e,#ff7a6e);--softl:light-dark(#eaf0f6,#18222c)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
+[hidden]{display:none!important}
 html,body{margin:0}
 html{scroll-padding-block-end:calc(88px + env(safe-area-inset-bottom,0px));-webkit-font-smoothing:antialiased}
 button,summary,a{-webkit-tap-highlight-color:transparent}
@@ -111,7 +112,7 @@ ul.rules{padding-left:20px;margin:6px 0 16px}ul.rules li{margin:5px 0}
 .status{font-size:13px;color:var(--mute);margin-top:20px}
 h2.sec{font-size:26px;margin:18px 0 8px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.who{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;max-width:45%;padding:0 12px;border-radius:999px;border:2px solid rgba(255,255,255,.55);background:rgba(0,0,0,.12);color:#fff;font:600 15px Barlow,sans-serif;cursor:pointer}
+.who{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;max-width:45%;padding:0 12px 0 8px;border-radius:999px;border:2px solid rgba(255,255,255,.55);background:rgba(0,0,0,.12);color:#fff;font:600 15px Barlow,sans-serif;cursor:pointer}
 .who span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .who svg{flex:none;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 dialog{border:0;border-radius:18px;padding:0;width:min(480px,calc(100vw - 32px));max-height:calc(100dvh - 48px);background:var(--card);color:var(--ink);box-shadow:0 20px 60px rgb(0 0 0/.35)}
@@ -130,6 +131,22 @@ dialog::backdrop{background:rgb(0 0 0/.55)}
 .danger{color:var(--bad);border-color:var(--bad)}
 .btn.danger{background:var(--bad);color:#fff}
 .confirm{background:var(--bg);border-radius:12px;padding:12px;margin-top:8px}
+.dot.oth{background:var(--mute);border-radius:1px;transform:rotate(45deg) scale(.85)}
+.card.oth{border-left-color:var(--mute)}.card.oth .kind{color:var(--mute)}
+.acts{display:flex;flex-wrap:wrap;gap:0 18px;margin-top:6px}
+.addsess{width:100%;min-height:52px;border:2px dashed var(--line);border-radius:14px;background:transparent;color:var(--ink);font:600 16px Barlow,sans-serif;cursor:pointer;margin:2px 0 12px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:999px;background:var(--bg);color:var(--mute);margin-inline-start:6px;vertical-align:1px}
+.field select,.field textarea{width:100%;font:16px Barlow,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;min-height:44px;padding:0 10px}
+.field textarea{min-height:160px;padding:10px;line-height:1.45}
+.chk2{display:flex;gap:10px;align-items:center;min-height:44px}
+.chk2 input{width:22px;height:22px;min-height:0}
+.av{width:28px;height:28px;border-radius:50%;object-fit:cover;flex:none}
+.plist .av{width:36px;height:36px}
+.pl{display:flex;align-items:center;gap:10px;min-width:0}
+.photo{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:4px 0 6px}
+.photo .big-av{width:64px;height:64px;border-radius:50%;object-fit:cover;background:var(--bg);display:grid;place-items:center;color:var(--mute);border:1px solid var(--line)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sr:focus-visible+label{outline:3px solid var(--lift);outline-offset:2px}
 .nav{position:fixed;inset-inline:0;bottom:0;z-index:10;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;background:color-mix(in srgb,var(--card) 90%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 .nav button{min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:0;border-radius:12px;color:var(--mute);font:600 13px/1.2 Barlow,sans-serif;cursor:pointer}
 .ni{display:grid;place-items:center;width:56px;height:30px;border-radius:999px}
@@ -195,7 +212,7 @@ dialog::backdrop{background:rgb(0 0 0/.55)}
 <body>
 <header class="band">
   <div class="wrap">
-    <div class="top"><h1>Plan hybride · Mois 1</h1><button class="who" id="whoBtn" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span id="whoName">Moi</span></button></div>
+    <div class="top"><h1>Plan hybride · Mois 1</h1><button class="who" id="whoBtn" aria-haspopup="dialog"><span id="whoAv" style="display:contents"></span><span id="whoName">Moi</span></button></div>
     <div class="sub"><span id="wkLabel">Semaine 1</span><span id="wkKm">~25 km de course</span></div>
     <div class="weeks" id="weeks"></div>
   </div>
@@ -204,7 +221,7 @@ dialog::backdrop{background:rgb(0 0 0/.55)}
 <main class="wrap">
   <section id="v-seances">
     <div class="strip" id="strip"></div>
-    <p class="legend" aria-hidden="true"><span><i class="dot run"></i>Course</span><span><i class="dot lift"></i>Muscu</span><span><i class="dot rest"></i>Repos</span><span>Anneau = fait</span></p>
+    <p class="legend" aria-hidden="true"><span><i class="dot run"></i>Course</span><span><i class="dot lift"></i>Muscu</span><span><i class="dot rest"></i>Repos</span><span><i class="dot oth"></i>Autre</span><span>Anneau = fait</span></p>
     <div id="formeMini"></div>
     <div id="dayview"></div>
   </section>
@@ -323,6 +340,7 @@ dialog::backdrop{background:rgb(0 0 0/.55)}
     <div class="plist" id="plist"></div>
     <h3>Profil actif</h3>
     <div class="field"><label for="profName">Prénom</label><input id="profName" type="text" autocomplete="given-name" maxlength="24"></div>
+    <div class="photo"><span id="bigAv" class="big-av" aria-hidden="true"></span><input class="sr" type="file" id="photoIn" accept="image/*"><label for="photoIn" class="btn alt" style="display:inline-flex;align-items:center;cursor:pointer">Choisir une photo</label><button type="button" class="lnk" id="photoDel" hidden>Retirer la photo</button></div>
     <div id="delZone"></div>
     <h3>Ajouter un profil</h3>
     <form id="addForm" novalidate>
@@ -338,6 +356,20 @@ dialog::backdrop{background:rgb(0 0 0/.55)}
     <p class="meta">Sur un iPhone partagé, le Raccourci Santé lit la Santé du propriétaire de l'iPhone : importe seulement dans ton propre profil.</p>
     <div class="row"><button class="btn alt" id="closeDlg" type="button">Fermer</button></div>
   </div>
+</dialog>
+<dialog id="sessDlg" aria-labelledby="sessTitle">
+  <form class="dlg" id="sessForm" novalidate>
+    <h2 id="sessTitle">Séance</h2>
+    <p class="meta" id="sessCtx"></p>
+    <div class="field"><label for="sKind">Type</label><select id="sKind"><option value="run">Course</option><option value="lift">Musculation</option><option value="other">Autre (vélo, natation, mobilité…)</option></select></div>
+    <div class="field"><label for="sTitle">Titre</label><input id="sTitle" type="text" maxlength="60" placeholder="Fartlek 8 × 1 min" aria-describedby="sErr"></div>
+    <div class="field"><label for="sMeta">Infos</label><input id="sMeta" type="text" maxlength="80" placeholder="45 min · ~8 km"></div>
+    <div class="field"><label for="sLines">Contenu, une étape par ligne</label><textarea id="sLines" aria-describedby="sHelp"></textarea><p class="meta" id="sHelp"></p></div>
+    <label class="chk2" id="sAllWrap"><input type="checkbox" id="sAll"> Appliquer à toutes les semaines</label>
+    <p class="meta" id="sErr" role="status"></p>
+    <div class="row"><button class="btn" type="submit">Enregistrer</button><button class="btn alt" type="button" id="sCancel">Annuler</button></div>
+    <div class="row" id="sDelRow"><button type="button" class="lnk danger" id="sDel">Supprimer cette séance</button></div>
+  </form>
 </dialog>
 <nav class="nav" aria-label="Sections">
   <button id="t-seances" data-tab="seances" aria-current="page"><span class="ni"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>Séances</button>
@@ -391,8 +423,8 @@ const OPEN=new Set();
 const RIRTXT=["Semaine 1 : RIR 3 partout, tu apprends le geste.","Semaine 2 : RIR indiqué sur chaque exercice.","Semaine 3 : RIR 1–2 sur le haut du corps, jambes toujours RIR 2 minimum.","Semaine 4 allégée : mêmes charges qu'en S3, 2 séries par exercice, RIR 3."];
 const BILAN=["Distance du demi-Cooper et FC en fin de test","Charges × reps de la S3 sur les 2 premiers exercices de chaque séance","Kilométrage réel de chaque semaine","RPE moyen des séances de qualité","Signaux de fatigue et séances sautées","Poids et tour de taille, même jour, à jeun"];
 const LS="plan-hybride-m1";
-const DEF=()=>({start:"2026-11-23",vma:15,done:{},log:{},bilan:{},test:"",fcmax:"",health:{rhr:{},hrv:{},slp:{},runs:{},at:""}});
-function norm(s){const d=DEF();const o=Object.assign(d,s||{});o.health=Object.assign(DEF().health,o.health||{});["rhr","hrv","slp","runs"].forEach(k=>{if(!o.health[k]||typeof o.health[k]!=="object")o.health[k]={}});return o}
+const DEF=()=>({start:"2026-11-23",vma:15,done:{},log:{},bilan:{},test:"",fcmax:"",custom:{},edits:{},health:{rhr:{},hrv:{},slp:{},runs:{},at:""}});
+function norm(s){const d=DEF();const o=Object.assign(d,s||{});o.health=Object.assign(DEF().health,o.health||{});["rhr","hrv","slp","runs"].forEach(k=>{if(!o.health[k]||typeof o.health[k]!=="object")o.health[k]={}});["custom","edits"].forEach(k=>{if(!o[k]||typeof o[k]!=="object")o[k]={}});return o}
 let st=DEF();
 const PK="plan-hybride-profiles";let PROF={active:"p1",list:[{id:"p1",name:"Moi"}]};
 const pkey=id=>"plan-hybride-p-"+(id||PROF.active);
@@ -430,7 +462,24 @@ function run(w,c){
  return{t:"Sortie longue",m:"~"+[11,13,14,10][w-1]+" km",s,n:"FC au-dessus de la zone 2 : ralentis, marche dans les montées si besoin."};
 }
 function rir(w,c,r){if(r==="—")return r;if(w===1||w===4)return"3";if(w===3&&c!=="B"){return r==="1"?"1":"1–2"}return r}
-function names(d){return PLAN[d].map(c=>c==="Q"?"Qualité":c==="EF"?"EF":c==="SL"?"Sortie longue":"Muscu "+c).join(" + ")||"Repos"}
+function sess(w,d){const cu=(st.custom&&st.custom[w+"-"+d])||[];return PLAN[d].map(c=>({c,kind:LIFT[c]?"lift":"run"})).concat(cu.map(x=>({c:"X"+x.id,kind:x.kind,cu:x})))}
+function edOf(w,d,c){const E=st.edits||{};return E[w+"-"+d+"-"+c]||E["*-"+d+"-"+c]||null}
+function sname(w,d,s){if(s.cu)return s.cu.title;const e=edOf(w,d,s.c);if(e&&e.title)return e.title;return s.c==="Q"?"Qualité":s.c==="EF"?"EF":s.c==="SL"?"Sortie longue":"Muscu "+s.c}
+function names(d,w){w=w||wk;return sess(w,d).map(s=>sname(w,d,s)).join(" + ")||"Repos"}
+const txt=s=>String(s).replace(/<[^>]+>/g,"");
+const KL={run:"Course",lift:"Musculation",other:"Autre"};
+function exLine(line){const p=line.split(";").map(x=>x.trim());return{n:p[0]||"",dose:p[1]||"",rest:(p[2]||"").replace(/^repos\s*/i,""),rir:p[3]||"",cue:p[4]||""}}
+function logRow(k,pk){const lg=st.log[k]||{};const pv=pk?st.log[pk]:null;return'<div class="log"><label>kg <input type="number" inputmode="decimal" step="0.5" id="kg-'+k+'" data-k="'+k+'" data-f="kg" value="'+esc(lg.kg||"")+'"></label><label>reps <input type="text" inputmode="numeric" id="r-'+k+'" data-k="'+k+'" data-f="r" placeholder="10,10,9" value="'+esc(lg.r||"")+'"></label>'+(pv&&(pv.kg||pv.r)?'<span class="prev">Avant : '+esc(pv.kg||"?")+" kg × "+esc(pv.r||"?")+"</span>":"")+"</div>"}
+function freeCard(o,ctx){ // o: {kind,title,meta,lines}; ctx: {key,ok,logBase,prevBase,label,acts,real,tips}
+ let x='<div class="card'+(o.kind==="lift"?" lift":o.kind==="other"?" oth":"")+'"><div class="kind">'+ctx.label+"</div><h3>"+esc(o.title||"Séance")+"</h3>"+(o.meta?'<p class="meta">'+esc(o.meta)+"</p>":"");
+ const L=(o.lines||[]).filter(l=>l.trim());
+ if(o.kind==="lift"){L.forEach((l,i)=>{const e=exLine(l);const T=ctx.tips&&ctx.tips(e.n,i);
+   x+='<div class="ex">'+(T?'<details class="tech" data-o="'+T.o+'"'+(OPEN.has(T.o)?" open":"")+'><summary><span class="exn">'+esc(e.n)+'</span><span class="tg">Technique</span></summary><ul>'+T.t.p.map(y=>"<li>"+esc(y)+"</li>").join("")+"</ul>"+vlinks(T.t.v)+"</details>":'<div class="exn">'+esc(e.n)+"</div>")+'<div class="exm">'+[e.dose?"<b>"+esc(e.dose)+"</b>":"",e.rest?"repos "+esc(e.rest):"",e.rir?(/rir/i.test(e.rir)?esc(e.rir):"RIR <b>"+esc(e.rir)+"</b>"):"",e.cue?esc(e.cue):""].filter(Boolean).join(" · ")+"</div>"+logRow(ctx.logBase+i,ctx.prevBase!=null?ctx.prevBase+i:null)+"</div>"})}
+ else if(L.length)x+='<ol class="steps">'+L.map(l=>"<li>"+esc(l)+"</li>").join("")+"</ol>";
+ return x+(ctx.real||"")+'<div class="acts">'+ctx.acts+'</div><button class="done" id="done-'+ctx.key+'" data-done="'+ctx.key+'" aria-pressed="'+ctx.ok+'">'+(ctx.ok?"Séance faite ✓":"Marquer comme faite")+"</button></div>"}
+function planDraft(w,c){if(LIFT[c]){const L=LIFT[c];return{kind:"lift",title:"Muscu "+c+" : "+L.t,meta:"55–65 min · 5 min de vélo puis 2 séries de montée en charge",lines:L.ex.map(e=>[e[0],(w===4?2:e[1])+" × "+e[2],e[3],rir(w,c,e[4])==="—"?"":"RIR "+rir(w,c,e[4]),e[5]].join(" ; "))}}
+ const r=run(w,c);return{kind:"run",title:r.t,meta:txt(r.m),lines:r.s.map(txt).concat(r.n?[txt(r.n)]:[])}}
+
 function dateOf(w,d){const x=new Date(st.start+"T00:00:00");x.setDate(x.getDate()+(w-1)*7+d);return x}
 function fdate(x){return x.toLocaleDateString("fr-FR",{day:"numeric",month:"short"})}
 
@@ -460,8 +509,8 @@ function importHealth(raw){
   else c.bad++;
  });
  Object.values(h.runs).forEach(r=>{const s=dOf(r.s),e=dOf(r.e);if(!s||!e)return;const S=s.getTime(),E=e.getTime()+59e3;const m=new Map((r.hr||[]).map(x=>[x[0],x[1]]));hrs.forEach(([t,v])=>{if(t>=S-6e4&&t<=E)m.set(Math.round((t-S)/1000),v)});r.hr=[...m.entries()].sort((a,b)=>a[0]-b[0])});
- fresh.forEach(id=>{const r=h.runs[id];const pos=planPos(dOf(r.s));if(!pos)return;const cs=PLAN[pos.d];let k=null;
-  if(isRun(r))k=["Q","EF","SL"].find(x=>cs.includes(x));else if(isLift(r))k=cs.find(x=>LIFT[x]);
+ fresh.forEach(id=>{const r=h.runs[id];const pos=planPos(dOf(r.s));if(!pos)return;const ss=sess(pos.w,pos.d);let k=null;
+  if(isRun(r))k=["Q","EF","SL"].find(x=>ss.some(s=>s.c===x))||(ss.find(s=>s.cu&&s.kind==="run")||{}).c;else if(isLift(r))k=(ss.find(s=>s.kind==="lift")||{}).c;
   if(k){const key=pos.w+"-"+pos.d+"-"+k;if(!st.done[key]){st.done[key]=true;c.auto++}}});
  const lim=dk(addD(now,-200));["rhr","hrv","slp","runs"].forEach(t=>Object.keys(h[t]).forEach(k=>{if(k.slice(0,10)<lim)delete h[t][k]}));
  h.at=new Date().toISOString();return c;
@@ -504,7 +553,7 @@ function forme(){
  if(!any)return null;
  const lvl=sig.some(s=>s.l===2)||sig.length>=2?2:sig.length;
  const pos=planPos(T);const cs=pos?PLAN[pos.d]:[];const has=x=>cs.includes(x);let a;
- if(lvl===0)a=cs.length?"Feu vert : fais la séance prévue ("+names(pos.d)+").":"Feu vert. Repos prévu aujourd'hui : profites-en.";
+ if(lvl===0)a=cs.length?"Feu vert : fais la séance prévue ("+names(pos.d,pos.w)+").":"Feu vert. Repos prévu aujourd'hui : profites-en.";
  else if(lvl===1)a=has("Q")?"Remplace la qualité par 40 min d'EF tranquille.":has("SL")?"Raccourcis la sortie longue de 30 % et reste bien en zone 2.":has("B")?"Muscu B à RIR 4 avec une série de moins, ou supprime-la.":has("EF")?"EF raccourcie de 30 %"+(has("C")?", Muscu C à RIR 3–4 avec une série de moins.":"."):(has("A")||has("C"))?"Garde la séance à RIR 3–4, une série de moins par exercice.":"Repos prévu : couche-toi tôt ce soir.";
  else a=cs.length?"Pas d'intensité aujourd'hui : 30 min d'EF très facile ou repos complet. Si ça dure 2 jours, passe en semaine allégée (type S4).":"Repos prévu, et c'est ce qu'il te faut. Si ça dure demain, allège la semaine.";
  return{lvl,a,sig,chips,fresh};
@@ -568,15 +617,34 @@ const mondayOf=d=>{const x=new Date(d);x.setDate(x.getDate()-((x.getDay()+6)%7))
 let DEL=false;
 function renderProfiles(){
  $("plist").innerHTML=PROF.list.map(x=>{let s=null;try{s=JSON.parse(localStorage.getItem(pkey(x.id))||"null")}catch(e){}const n=s&&s.done?Object.keys(s.done).length:0;
-  return'<button type="button" id="prof-'+x.id+'" data-prof="'+x.id+'" aria-pressed="'+(x.id===PROF.active)+'"><span>'+esc(x.name)+'</span><small>'+(x.id===PROF.active?"actif · ":"")+n+" séance"+(n>1?"s":"")+" faite"+(n>1?"s":"")+"</small></button>"}).join("");
- $("profName").value=profName();
+  return'<button type="button" id="prof-'+x.id+'" data-prof="'+x.id+'" aria-pressed="'+(x.id===PROF.active)+'"><span class="pl">'+(x.photo?'<img class="av" alt="" src="'+x.photo+'">':"")+"<span>"+esc(x.name)+'</span></span><small>'+(x.id===PROF.active?"actif · ":"")+n+" séance"+(n>1?"s":"")+" faite"+(n>1?"s":"")+"</small></button>"}).join("");
+ $("profName").value=profName();const cur=PROF.list.find(x=>x.id===PROF.active)||{};$("bigAv").innerHTML=cur.photo?'<img alt="" src="'+cur.photo+'" style="width:64px;height:64px;border-radius:50%;object-fit:cover">':"Photo";$("photoDel").hidden=!cur.photo;
  $("delZone").innerHTML=PROF.list.length<2?"":DEL?'<div class="confirm" role="group" aria-labelledby="delQ"><p id="delQ" class="fa">Supprimer le profil « '+esc(profName())+' » ?</p><p class="meta">Ses séances, charges, bilans et données Santé seront effacés de ce téléphone. Fais « Copier mon bilan » avant si tu veux les garder.</p><div class="row"><button type="button" class="btn danger" id="delYes">Supprimer « '+esc(profName())+' »</button><button type="button" class="btn alt" id="delNo">Annuler</button></div></div>':'<button type="button" class="lnk danger" id="delAsk">Supprimer ce profil…</button>';
  if(!$("newStart").value)$("newStart").value=mondayOf(now);
 }
 function switchProfile(id){PROF.active=id;saveProfiles();loadState();resetView();OPEN.clear();UNDO=null;DEL=false;tab="seances";render();window.scrollTo(0,0)}
+let SE=null;
+function openEditor(mode,c){const d=sel,w=wk;SE={mode,c,d,w};let o;
+ if(mode==="add")o={kind:"run",title:"",meta:"",lines:[]};
+ else if(c[0]==="X"){const id=c.slice(1);o=Object.assign({},(st.custom[w+"-"+d]||[]).find(x=>x.id===id));SE.mode="custom";SE.id=id}
+ else{o=edOf(w,d,c)||planDraft(w,c);SE.mode="plan"}
+ $("sessTitle").textContent=mode==="add"?"Ajouter une séance":"Modifier la séance";
+ $("sessCtx").textContent=DAYS[d]+" "+dateOf(w,d).getDate()+" · semaine "+w;
+ $("sKind").value=o.kind;$("sKind").disabled=SE.mode==="plan";$("sTitle").value=o.title||"";$("sMeta").value=o.meta||"";$("sLines").value=(o.lines||[]).join("\n");
+ $("sAllWrap").hidden=SE.mode!=="plan";$("sAll").checked=SE.mode==="plan"&&!!(st.edits||{})["*-"+d+"-"+c]&&!(st.edits||{})[w+"-"+d+"-"+c];
+ $("sDelRow").hidden=SE.mode!=="custom";$("sErr").textContent="";$("sTitle").removeAttribute("aria-invalid");helpFor();$("sessDlg").showModal()}
+function helpFor(){$("sHelp").textContent=$("sKind").value==="lift"?"Une ligne par exercice : Nom ; 3 × 10 ; 90 s ; RIR 2 ; consigne. Seul le nom est obligatoire.":"Exemple : 15 min d'EF, puis 8 × 1 min vite / 1 min lent, puis 10 min de retour au calme."}
+function saveEditor(){const title=$("sTitle").value.trim();if(!title){$("sErr").textContent="Donne un titre à la séance.";$("sTitle").setAttribute("aria-invalid","true");$("sTitle").focus();return}
+ UNDO=JSON.stringify(st);const o={kind:$("sKind").value,title,meta:$("sMeta").value.trim(),lines:$("sLines").value.split("\n").map(x=>x.trim()).filter(Boolean)};
+ const {w,d,c}=SE;st.custom=st.custom||{};st.edits=st.edits||{};
+ if(SE.mode==="add"){const id=Date.now().toString(36);(st.custom[w+"-"+d]=st.custom[w+"-"+d]||[]).push(Object.assign({id},o))}
+ else if(SE.mode==="custom"){const a=st.custom[w+"-"+d]||[];const i=a.findIndex(x=>x.id===SE.id);if(i>=0)a[i]=Object.assign({id:SE.id},o)}
+ else{o.kind=LIFT[c]?"lift":"run";if($("sAll").checked){st.edits["*-"+d+"-"+c]=o;delete st.edits[w+"-"+d+"-"+c]}else st.edits[w+"-"+d+"-"+c]=o}
+ save();$("sessDlg").close();render();setStatus(SE.mode==="add"?"Séance ajoutée.":"Séance modifiée.","Annuler")}
+function resizePhoto(file){return new Promise((ok,ko)=>{const u=URL.createObjectURL(file);const im=new Image();im.onload=()=>{const S=160,c=document.createElement("canvas");c.width=c.height=S;const s=Math.min(im.naturalWidth,im.naturalHeight);c.getContext("2d").drawImage(im,(im.naturalWidth-s)/2,(im.naturalHeight-s)/2,s,s,0,0,S,S);URL.revokeObjectURL(u);ok(c.toDataURL("image/jpeg",.85))};im.onerror=()=>{URL.revokeObjectURL(u);ko()};im.src=u})}
 function render(){
  const fid=document.activeElement&&document.activeElement.id;
- $("whoName").textContent=profName();$("whoBtn").setAttribute("aria-label","Profil : "+profName()+". Changer ou ajouter un profil");
+ $("whoName").textContent=profName();const ph=(PROF.list.find(x=>x.id===PROF.active)||{}).photo;$("whoAv").innerHTML=ph?'<img class="av" alt="" src="'+ph+'">':'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>';$("whoBtn").setAttribute("aria-label","Profil : "+profName()+". Changer ou ajouter un profil");
  $("weeks").innerHTML=[1,2,3,4].map(i=>'<button id="wk-'+i+'" aria-pressed="'+(i===wk)+'" data-w="'+i+'" aria-label="S'+i+', semaine '+i+(i===4?' allégée':'')+'">S'+i+"</button>").join("");
  $("wkLabel").textContent="Semaine "+wk+(wk===4?" allégée":"")+" · du "+fdate(dateOf(wk,0))+" au "+fdate(dateOf(wk,6));
  const kd=kmBetween(dk(dateOf(wk,0)),dk(dateOf(wk,6)));$("wkKm").textContent="~"+KM[wk-1]+" km prévus"+(kd>0?" · "+f1(kd)+" km faits":"");
@@ -584,19 +652,24 @@ function render(){
  ["seances","sante","allures","regles"].forEach(k=>$("v-"+k).hidden=k!==tab);
  const isToday=dateOf(wk,sel).toDateString()===now.toDateString();$("formeMini").innerHTML=isToday?formeHTML(true):"";
  const todayStr=now.toDateString();
- $("strip").innerHTML=DAYS.map((n,d)=>{const cs=PLAN[d];const dots=cs.length?cs.map(c=>{const run=["Q","EF","SL"].includes(c);const ok=st.done[wk+"-"+d+"-"+c];return'<i class="dot '+(run?"run":"lift")+(ok?" ok":"")+'" style="color:var('+(run?"--run":"--lift")+')"></i>'}).join(""):'<i class="dot rest"></i>';const dt=dateOf(wk,d);const nd=cs.filter(c=>st.done[wk+"-"+d+"-"+c]).length;return'<button id="day-'+d+'" class="day'+(dt.toDateString()===todayStr?" today":"")+'" aria-pressed="'+(d===sel)+'" data-d="'+d+'" aria-label="'+n.slice(0,3)+" "+dt.getDate()+" : "+names(d)+(cs.length?(nd===cs.length?", fait":nd?", en partie fait":""):"")+'"><small>'+n.slice(0,3)+"</small><b>"+dt.getDate()+'</b><span class="dots">'+dots+'</span><span class="nm">'+names(d)+"</span></button>"}).join("");
+ $("strip").innerHTML=DAYS.map((n,d)=>{const cs=sess(wk,d).slice(0,3);const all=sess(wk,d);const dots=cs.length?cs.map(s=>{const ok=st.done[wk+"-"+d+"-"+s.c];const cl=s.kind==="run"?"run":s.kind==="lift"?"lift":"oth";return'<i class="dot '+cl+(ok?" ok":"")+'" style="color:var('+(cl==="run"?"--run":cl==="lift"?"--lift":"--mute")+')"></i>'}).join(""):'<i class="dot rest"></i>';const dt=dateOf(wk,d);const nd=all.filter(s=>st.done[wk+"-"+d+"-"+s.c]).length;return'<button id="day-'+d+'" class="day'+(dt.toDateString()===todayStr?" today":"")+'" aria-pressed="'+(d===sel)+'" data-d="'+d+'" aria-label="'+n.slice(0,3)+" "+dt.getDate()+" : "+names(d)+(all.length?(nd===all.length?", fait":nd?", en partie fait":""):"")+'"><small>'+n.slice(0,3)+"</small><b>"+dt.getDate()+'</b><span class="dots">'+dots+'</span><span class="nm">'+names(d)+"</span></button>"}).join("");
  const dt=dateOf(wk,sel);
  let h='<div class="dayhead"><h2>'+DAYS[sel]+"</h2><span>"+dt.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})+"</span></div>";
- if(!PLAN[sel].length)h+='<div class="card rest"><div class="kind">Repos complet</div><h3>Rien au programme</h3><p class="meta">'+(sel===3?"Assimilation du bloc qualité + jambes de mardi et mercredi.":"Jambes fraîches pour la sortie longue de demain.")+"</p></div>";
- PLAN[sel].forEach(c=>{const key=wk+"-"+sel+"-"+c;const ok=!!st.done[key];
+ const SS=sess(wk,sel);
+ if(!SS.length)h+='<div class="card rest"><div class="kind">Repos complet</div><h3>Rien au programme</h3><p class="meta">'+(sel===3?"Assimilation du bloc qualité + jambes de mardi et mercredi.":"Jambes fraîches pour la sortie longue de demain.")+"</p></div>";
+ SS.forEach(s=>{const c=s.c;const key=wk+"-"+sel+"-"+c;const ok=!!st.done[key];
+  if(s.cu){h+=freeCard(s.cu,{key,ok,label:KL[s.kind]+'<span class="tag">ajoutée</span>',logBase:wk+"-"+c+"-",prevBase:null,real:s.kind==="other"?"":realHTML(s.kind==="lift"?"A":"X",dk(dt)),acts:'<button class="lnk" data-edit="'+c+'">Modifier</button>'});return}
+  const ed=edOf(wk,sel,c);
+  if(ed){h+=freeCard(ed,{key,ok,label:(LIFT[c]?"Musculation":"Course")+'<span class="tag">modifiée'+((st.edits||{})[wk+"-"+sel+"-"+c]?"":" · toutes les semaines")+"</span>",logBase:wk+"-"+c+"-",prevBase:(wk-1)+"-"+c+"-",tips:LIFT[c]?(n,i)=>{const e=LIFT[c].ex[i];return e&&e[0]===n?{o:c+i,t:TIPS[c][i]}:null}:null,real:realHTML(c,dk(dt)),acts:'<button class="lnk" data-edit="'+c+'">Modifier</button><button class="lnk" data-reset="'+c+'">Rétablir la séance du plan</button>'});return}
   if(LIFT[c]){const L=LIFT[c];h+='<div class="card lift"><div class="kind">Musculation · Basic-Fit'+(c==="C"?" · l'après-midi, 6 h après l'EF":"")+"</div><h3>Muscu "+c+" : "+L.t+'</h3><p class="meta">55–65 min · 5 min de vélo puis 2 séries de montée en charge</p><p class="note">'+RIRTXT[wk-1]+"</p>";
    L.ex.forEach((e,i)=>{const k=wk+"-"+c+"-"+i;const lg=st.log[k]||{};const pv=st.log[(wk-1)+"-"+c+"-"+i];const sets=wk===4?2:e[1];
     const T=TIPS[c][i];h+='<div class="ex"><details class="tech" data-o="'+c+i+'"'+(OPEN.has(c+i)?" open":"")+'><summary><span class="exn">'+esc(e[0])+'</span><span class="tg">Technique</span></summary><ul>'+T.p.map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul>"+vlinks(T.v)+'</details><div class="exm"><b>'+sets+" × "+e[2]+"</b> · repos "+e[3]+" · RIR <b>"+rir(wk,c,e[4])+"</b> · "+esc(e[5])+'</div><div class="log"><label>kg <input type="number" inputmode="decimal" step="0.5" id="kg-'+k+'" data-k="'+k+'" data-f="kg" value="'+esc(lg.kg||"")+'"></label><label>reps <input type="text" inputmode="numeric" id="r-'+k+'" data-k="'+k+'" data-f="r" placeholder="10,10,9" value="'+esc(lg.r||"")+'"></label>'+(pv&&(pv.kg||pv.r)?'<span class="prev">S'+(wk-1)+" : "+esc(pv.kg||"?")+" kg × "+esc(pv.r||"?")+"</span>":"")+"</div></div>"});
-   h+=realHTML(c,dk(dt))+'<button class="done" id="done-'+key+'" data-done="'+key+'" aria-pressed="'+ok+'">'+(ok?"Séance faite ✓":"Marquer comme faite")+"</button></div>"}
+   h+=realHTML(c,dk(dt))+'<div class="acts"><button class="lnk" data-edit="'+c+'">Modifier</button></div><button class="done" id="done-'+key+'" data-done="'+key+'" aria-pressed="'+ok+'">'+(ok?"Séance faite ✓":"Marquer comme faite")+"</button></div>"}
   else{const r=run(wk,c);h+='<div class="card"><div class="kind">Course'+(c==="Q"?" · qualité":c==="EF"?" · endurance":" · sortie longue")+"</div><h3>"+r.t+'</h3><p class="meta">'+r.m+'</p><ol class="steps">'+r.s.map(x=>"<li>"+x+"</li>").join("")+"</ol>"+(r.n?'<p class="note">'+r.n+"</p>":"")+(c==="Q"?vlinks(wk===1?RUNVID.T.concat(RUNVID.Q):RUNVID.Q)+watchHTML(wk):"")+realHTML(c,dk(dt));
    if(r.test){const vm=st.test?(Number(st.test)/100).toFixed(1):"";h+='<div class="test"><label for="testIn">Distance en 6 min (m)</label><input id="testIn" type="number" inputmode="numeric" value="'+esc(st.test)+'"><span id="testOut">'+(vm?"VMA = <b>"+vm+" km/h</b>":"")+'</span><button class="btn" id="useVma">Utiliser cette VMA</button></div>'}
-   h+='<button class="done" id="done-'+key+'" data-done="'+key+'" aria-pressed="'+ok+'">'+(ok?"Séance faite ✓":"Marquer comme faite")+"</button></div>"}
+   h+='<div class="acts"><button class="lnk" data-edit="'+c+'">Modifier</button></div><button class="done" id="done-'+key+'" data-done="'+key+'" aria-pressed="'+ok+'">'+(ok?"Séance faite ✓":"Marquer comme faite")+"</button></div>"}
  });
+ h+='<button class="addsess" id="addSess">+ Ajouter une séance ce '+DAYS[sel].toLowerCase()+"</button>";
  $("dayview").innerHTML=h;
  $("vmaIn").value=st.vma;$("startIn").value=st.start;
  const Z=[["Endurance fondamentale (Z2)",.65,.72,"70–78 % FCmax, conversation possible"],["Allure marathon",.78,.80,"Respiration audible, RPE 5–6"],["Seuil",.85,.88,"85–90 % FCmax, RPE 7"],["VMA longue",.92,.95,"800 m en "+t800(.95)+"–"+t800(.92)],["VMA courte",1,1.05,"30 s = "+m30(1)+"–"+m30(1.05)+" m"]];
@@ -606,14 +679,14 @@ function render(){
  $("bilan").innerHTML=BILAN.map((b,i)=>'<label class="chk"><input type="checkbox" id="bil-'+i+'" data-b="'+i+'"'+(st.bilan[i]?" checked":"")+"> "+b+"</label>").join("");
 }
 let UNDO=null;
-function setStatus(t,undo){const s=$("status");s.textContent=t;if(undo){const u=document.createElement("button");u.className="lnk";u.id="undoBtn";u.textContent="Annuler la restauration";s.append(" ",u)}}
+function setStatus(t,undo){const s=$("status");s.textContent=t;if(undo){const u=document.createElement("button");u.className="lnk";u.id="undoBtn";u.textContent=typeof undo==="string"?undo:"Annuler la restauration";s.append(" ",u)}}
 function save(){try{localStorage.setItem(pkey(),JSON.stringify(st));setStatus("Enregistré sur ce téléphone.")}catch(e){setStatus("Impossible d'enregistrer sur ce téléphone (navigation privée ?).")}}
 function bilanText(){
  const L=["Bilan Plan hybride, mois 1 · "+profName(),"VMA : "+v().toFixed(1)+" km/h"+(st.test?" (test : "+st.test+" m en 6 min)":"")];
  for(let w=1;w<=4;w++){
-  const all=[];PLAN.forEach((cs,d)=>cs.forEach(c=>all.push([d,c])));
+  const all=[];for(let d=0;d<7;d++)sess(w,d).forEach(s=>all.push([d,s.c,s]));
   const ok=all.filter(([d,c])=>st.done[w+"-"+d+"-"+c]);
-  const miss=all.filter(([d,c])=>!st.done[w+"-"+d+"-"+c]).map(([d,c])=>DAYS[d].slice(0,3)+" "+(LIFT[c]?"Muscu "+c:c));
+  const miss=all.filter(([d,c])=>!st.done[w+"-"+d+"-"+c]).map(([d,c,s])=>DAYS[d].slice(0,3)+" "+sname(w,d,s));
   L.push("","Semaine "+w+" : "+ok.length+"/"+all.length+" séances faites"+(miss.length&&ok.length?" (manquées : "+miss.join(", ")+")":""));
   ["A","B","C"].forEach(c=>{const rows=LIFT[c].ex.map((e,i)=>{const g=st.log[w+"-"+c+"-"+i];return g&&(g.kg||g.r)?"  "+e[0]+" : "+(g.kg||"?")+" kg × "+(g.r||"?"):null}).filter(Boolean);if(rows.length)L.push(" Muscu "+c+" :",...rows)});
  }
@@ -640,13 +713,19 @@ document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)r
  else if(b.id==="importBtn"){const raw=$("importIn").value;const i=raw.indexOf("{",raw.indexOf("DONNÉES")>=0?raw.indexOf("DONNÉES"):0);
   try{const d=JSON.parse(raw.slice(i));if(!d||typeof d!=="object"||!("done" in d))throw 0;UNDO=JSON.stringify(st);st=norm(d);save();$("importIn").value="";render();setStatus("Sauvegarde restaurée.",true);$("status").scrollIntoView({block:"nearest"})}
   catch(err){setStatus("Sauvegarde illisible : colle le bilan complet, ligne DONNÉES comprise.")}}
+ else if(b.id==="addSess")openEditor("add")
+ else if(b.dataset.edit)openEditor("edit",b.dataset.edit)
+ else if(b.dataset.reset){UNDO=JSON.stringify(st);const c=b.dataset.reset;delete st.edits[wk+"-"+sel+"-"+c];delete st.edits["*-"+sel+"-"+c];save();render();setStatus("Séance du plan rétablie.","Annuler")}
+ else if(b.id==="sCancel")$("sessDlg").close()
+ else if(b.id==="sDel"){UNDO=JSON.stringify(st);const a=st.custom[SE.w+"-"+SE.d]||[];st.custom[SE.w+"-"+SE.d]=a.filter(x=>x.id!==SE.id);delete st.done[SE.w+"-"+SE.d+"-X"+SE.id];save();$("sessDlg").close();render();setStatus("Séance supprimée.","Annuler")}
+ else if(b.id==="photoDel"){const x=PROF.list.find(y=>y.id===PROF.active);delete x.photo;saveProfiles();renderProfiles();render()}
  else if(b.id==="whoBtn"){DEL=false;renderProfiles();$("profDlg").showModal()}
  else if(b.id==="closeDlg"){$("profDlg").close()}
  else if(b.dataset.prof){if(b.dataset.prof!==PROF.active){switchProfile(b.dataset.prof);$("profDlg").close();setStatus("Profil ouvert : "+profName()+".")}}
  else if(b.id==="delAsk"){DEL=true;renderProfiles();$("delYes").focus()}
  else if(b.id==="delNo"){DEL=false;renderProfiles();$("delAsk").focus()}
  else if(b.id==="delYes"){const gone=PROF.active,name=profName();try{localStorage.removeItem(pkey(gone))}catch(err){}PROF.list=PROF.list.filter(x=>x.id!==gone);switchProfile(PROF.list[0].id);$("profDlg").close();setStatus("Profil « "+name+" » supprimé. Profil ouvert : "+profName()+".")}
- else if(b.id==="undoBtn"&&UNDO){st=norm(JSON.parse(UNDO));UNDO=null;save();render();setStatus("Restauration annulée : tes données précédentes sont revenues.")}
+ else if(b.id==="undoBtn"&&UNDO){st=norm(JSON.parse(UNDO));UNDO=null;save();render();setStatus("C'est annulé : tes données précédentes sont revenues.")}
  else if(b.id==="useVma"){const d=Number(st.test);if(d>1000){st.vma=Math.round(d/10)/10;save();render();setStatus("VMA mise à jour : "+st.vma+" km/h. Toutes les allures sont recalculées.")}}
 });
 document.addEventListener("input",e=>{const t=e.target;
@@ -656,7 +735,7 @@ document.addEventListener("input",e=>{const t=e.target;
  else if(t.id==="startIn"&&t.value){st.start=t.value;save()}
  else if(t.id==="fcIn"){const n=Number(t.value);if(!t.value||(n>=150&&n<=230)){st.fcmax=t.value;save()}}
 });
-document.addEventListener("submit",e=>{if(e.target.id!=="addForm")return;e.preventDefault();
+document.addEventListener("submit",e=>{if(e.target.id==="sessForm"){e.preventDefault();saveEditor();return}if(e.target.id!=="addForm")return;e.preventDefault();
  const nm=$("newName").value.trim(),vm=Number($("newVma").value),sd=$("newStart").value;const err=$("newErr");
  if(!nm){err.textContent="Indique un prénom pour créer le profil.";$("newName").setAttribute("aria-invalid","true");$("newName").focus();return}
  $("newName").removeAttribute("aria-invalid");err.textContent="";
@@ -664,6 +743,8 @@ document.addEventListener("submit",e=>{if(e.target.id!=="addForm")return;e.preve
  try{localStorage.setItem(pkey(id),JSON.stringify(s))}catch(x){err.textContent="Impossible d'enregistrer sur ce téléphone.";return}
  PROF.list.push({id,name:nm});$("newName").value="";switchProfile(id);$("profDlg").close();setStatus("Profil « "+nm+" » créé. Il démarre le "+new Date(s.start+"T00:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"long"})+".")});
 document.addEventListener("change",e=>{const t=e.target;
+ if(t.id==="sKind"){helpFor();return}
+ if(t.id==="photoIn"&&t.files&&t.files[0]){resizePhoto(t.files[0]).then(u=>{const x=PROF.list.find(y=>y.id===PROF.active);x.photo=u;try{localStorage.setItem(PK,JSON.stringify(PROF))}catch(err){delete x.photo;setStatus("Photo trop lourde pour ce téléphone : essaie une autre image.");return}renderProfiles();render()},()=>setStatus("Impossible de lire cette image : choisis une photo JPEG ou PNG."));t.value="";return}
  if(t.id==="profName"){const nm=t.value.trim();if(nm){const x=PROF.list.find(y=>y.id===PROF.active);x.name=nm;saveProfiles();renderProfiles();render()}else t.value=profName();return}
  if(t.dataset.b!==undefined){if(t.checked)st.bilan[t.dataset.b]=true;else delete st.bilan[t.dataset.b];save()}
  if(t.id==="vmaIn"||t.id==="startIn"||t.id==="fcIn")render()});

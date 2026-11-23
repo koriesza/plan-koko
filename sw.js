@@ -1,6 +1,6 @@
 // Cache de l'app pour qu'elle marche hors ligne.
 // Change VERSION à chaque mise à jour des fichiers pour forcer le rechargement.
-const VERSION = "plan-hybride-v5";
+const VERSION = "plan-hybride-v6";
 const CORE = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {
